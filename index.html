@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #myFile {
+            display: block;
+            margin: 50px auto;
+            margin-right: 600px;
+        }
+
+        #submit {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px auto;
+            margin-left: 700px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        #submit:hover {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #4CAF50;
+        }
+
+        #demo {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            display: none;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<h2>File Upload</h2>
+
+<input type="file" id="myFile" name="filename">
+<br>
+<button id="submit" onclick="analyze()">Submit</button>
+
+<div id="loader" class="loader"></div>
+<p id="demo"></p>
+
+<script>
+document.getElementById('myFile').addEventListener('change', function() {
+    document.getElementById('submit').style.display = 'block';
+});
+
+function analyze() {
+    document.getElementById('loader').style.display = 'block';
+    setTimeout(function() {
+        document.getElementById('loader').style.display = 'none';
+        var filePath = document.getElementById('myFile').value;
+        var alertMessage = '';
+        if (filePath.endsWith('dog.mp4')) {
+            alertMessage = 'Alert! Dog is attacking a kid';
+        } else if (filePath.endsWith('military.mp4')) {
+            alertMessage = 'Alert! Hostile activity in our territory';
+        } else {
+            alertMessage = 'No alerts';
+        }
+        document.getElementById('demo').innerHTML = alertMessage;
+        window.location.href = 'mailto:securityhead@gmail.com?subject=' + encodeURIComponent(alertMessage);
+    }, 3000);
+}
+</script>
+
+</body>
+</html>
