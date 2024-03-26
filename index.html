@@ -1,116 +1,141 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-        h2 {
-            color: #333;
-            text-align: center;
-            margin-top: 50px;
-        }
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-top: 20px;
+        font-size: 2.5em;
+      }
 
-        #myFile {
-            display: block;
-            margin: 50px auto;
-            margin-right: 600px;
-        }
+      h2 {
+        color: #333;
+        text-align: center;
+        margin-top: 50px;
+      }
 
-        #submit {
-            display: none;
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 20px auto;
-            margin-left: 700px;
-            transition-duration: 0.4s;
-            cursor: pointer;
-            border-radius: 12px;
-        }
+      #myFile {
+        display: block;
+        margin: 50px auto;
+        margin-right: 600px;
+      }
 
-        #submit:hover {
-            background-color: white; 
-            color: black; 
-            border: 2px solid #4CAF50;
-        }
+      #submit {
+        display: none;
+        background-color: #4caf50;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 20px auto;
+        margin-left: 700px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 12px;
+      }
 
-        #demo {
-            text-align: center;
-            margin-top: 50px;
-            font-size: 20px;
-            color: #333;
-        }
+      #submit:hover {
+        background-color: white;
+        color: black;
+        border: 2px solid #4caf50;
+      }
 
-        .loader {
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
-            animation: spin 2s linear infinite;
-            display: none;
-            margin: 0 auto;
-        }
+      #demo {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 20px;
+        color: red;
+      }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+      .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+        display: none;
+        margin: 0 auto;
+      }
 
-        video {
-            margin-top: 20px;
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
         }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      video {
+        margin-top: 20px;
+      }
+
+      .footer {
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #f4f4f4;
+        color: #333;
+        text-align: center;
+        padding: 10px 0;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <h1>Smart Surveillance System</h1>
 
-<h2>File Upload</h2>
+    <h2>File Upload</h2>
 
-<input type="file" id="myFile" name="filename" accept="video/*">
-<br>
-<button id="submit" onclick="analyze()">Submit</button>
+    <input type="file" id="myFile" name="filename" accept="video/*" />
+    <br />
+    <button id="submit" onclick="analyze()">Submit</button>
 
-<div id="loader" class="loader"></div>
-<video id="preview" width="320" height="240" controls></video>
-<p id="demo"></p>
+    <div id="loader" class="loader"></div>
+    <video id="preview" width="320" height="240" controls></video>
+    <p id="demo"></p>
 
-<script>
-document.getElementById('myFile').addEventListener('change', function() {
-    document.getElementById('submit').style.display = 'block';
-    var file = this.files[0];
-    var url = URL.createObjectURL(file);
-    document.getElementById('preview').src = url;
-});
+    <script>
+      document.getElementById("myFile").addEventListener("change", function () {
+        document.getElementById("submit").style.display = "block";
+        var file = this.files[0];
+        var url = URL.createObjectURL(file);
+        document.getElementById("preview").src = url;
+      });
 
-function analyze() {
-    document.getElementById('loader').style.display = 'block';
-    setTimeout(function() {
-        document.getElementById('loader').style.display = 'none';
-        var filePath = document.getElementById('myFile').value;
-        var alertMessage = '';
-        if (filePath.endsWith('dog.mp4')) {
-            alertMessage = 'Alert! Dog is attacking a kid';
-        } else if (filePath.endsWith('military.mp4')) {
-            alertMessage = 'Alert! Hostile activity in our territory';
-        } else {
-            alertMessage = 'No alerts';
-        }
-        document.getElementById('demo').innerHTML = alertMessage;
-    }, 3000);
-}
-</script>
+      function analyze() {
+        document.getElementById("loader").style.display = "block";
+        setTimeout(function () {
+          document.getElementById("loader").style.display = "none";
+          var filePath = document.getElementById("myFile").value;
+          var alertMessage = "";
+          if (filePath.endsWith("dog.mp4")) {
+            alertMessage = "Alert! Dog is attacking a kid";
+          } else if (filePath.endsWith("military.mp4")) {
+            alertMessage = "Alert! Hostile activity in our territory";
+          } else {
+            alertMessage = "No alerts";
+          }
+          document.getElementById("demo").innerHTML = alertMessage;
+        }, 3000);
+      }
+    </script>
 
-</body>
+    <div class="footer">
+      Created by Dibyadarsan Das, Ketan Gandhi, Pabak Kundu, Lokesh Bhuyan
+    </div>
+  </body>
 </html>
