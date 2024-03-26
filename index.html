@@ -7,6 +7,9 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h2 {
@@ -65,22 +68,30 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        video {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
 <h2>File Upload</h2>
 
-<input type="file" id="myFile" name="filename">
+<input type="file" id="myFile" name="filename" accept="video/*">
 <br>
 <button id="submit" onclick="analyze()">Submit</button>
 
 <div id="loader" class="loader"></div>
+<video id="preview" width="320" height="240" controls></video>
 <p id="demo"></p>
 
 <script>
 document.getElementById('myFile').addEventListener('change', function() {
     document.getElementById('submit').style.display = 'block';
+    var file = this.files[0];
+    var url = URL.createObjectURL(file);
+    document.getElementById('preview').src = url;
 });
 
 function analyze() {
@@ -97,7 +108,6 @@ function analyze() {
             alertMessage = 'No alerts';
         }
         document.getElementById('demo').innerHTML = alertMessage;
-        window.location.href = 'mailto:securityhead@gmail.com?subject=' + encodeURIComponent(alertMessage);
     }, 3000);
 }
 </script>
