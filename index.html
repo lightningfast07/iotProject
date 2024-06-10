@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+by<!DOCTYPE html>
 <html>
   <head>
     <style>
@@ -139,3 +139,53 @@
     </div>
   </body>
 </html>
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+from pdpbox import pdp, get_dataset, info_plots
+
+# Ensure interactive mode is on (for Jupyter notebook)
+# %matplotlib inline
+
+# Count plot
+plt.figure(figsize=(10, 6))
+sns.countplot(x='column_name', data=data)
+plt.title('Count Plot for column_name')
+plt.show()
+
+# Pie chart
+plt.figure(figsize=(10, 6))
+data['column_name'].value_counts().plot(kind='pie', autopct='%1.1f%%')
+plt.title('Pie Chart for column_name')
+plt.ylabel('')  # Hide the y-label
+plt.show()
+
+# Correlation matrix heatmap
+correlation_matrix = data.corr()
+plt.figure(figsize=(12, 10))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
+plt.title('Correlation Matrix Heatmap')
+plt.show()
+
+# Scatter plot
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x='numerical_column1', y='numerical_column2', data=data)
+plt.title('Scatter Plot')
+plt.show()
+
+# Box plot
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='category_column', y='numerical_column', data=data)
+plt.title('Box Plot')
+plt.show()
+
+# Pair plot
+sns.pairplot(data)
+plt.title('Pair Plot')
+plt.show()
+
+# PDP plot
+# Ensure model and data are defined and fitted before using pdpbox
+pdp_goals = pdp.pdp_isolate(model=model, dataset=data, model_features=data.columns.tolist(), feature='feature_of_interest')
+pdp.pdp_plot(pdp_goals, 'feature_of_interest')
+plt.show()
