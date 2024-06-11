@@ -189,3 +189,37 @@ plt.show()
 pdp_goals = pdp.pdp_isolate(model=model, dataset=data, model_features=data.columns.tolist(), feature='feature_of_interest')
 pdp.pdp_plot(pdp_goals, 'feature_of_interest')
 plt.show()
+
+
+# Build the ANN model
+model = Sequential()
+model.add(Dense(units=128, activation='relu', input_dim=X_train.shape[1]))
+model.add(BatchNormalization())
+model.add(Dropout(0.3))
+
+model.add(Dense(units=64, activation='relu'))
+model.add(BatchNormalization())
+model.add(Dropout(0.3))
+
+model.add(Dense(units=32, activation='relu'))
+model.add(BatchNormalization())
+model.add(Dropout(0.3))
+
+model.add(Dense(units=16, activation='relu'))
+model.add(BatchNormalization())
+model.add(Dropout(0.3))
+
+model.add(Dense(units=1, activation='sigmoid'))
+
+# Compile the model
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+# Train the model
+history = model.fit(X_train, y_train, epochs=50, batch_size=32, validation_split=0.2)
+
+# Evaluate the model
+loss, accuracy = model.evaluate(X_test, y_test)
+print(f'Model Accuracy: {accuracy:.2f}')
+
+# Save the model
+model.save('conflict_status_model.h5')
